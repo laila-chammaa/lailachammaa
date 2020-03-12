@@ -1,0 +1,301 @@
+{% extends 'index.html' %}
+{% block title %}Blog{% endblock %}
+{% block head %} {{ super() }}
+    <style>
+
+        .column1 {
+            float: left;
+            width: 30%;
+            margin-left: 20px;
+        }
+
+        .column2 {
+            float: right;
+            width: 65%;
+            margin-right: 10px;
+            margin-left: 20px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .time {
+            color: gray;
+            font-size: 17px;
+        }
+
+        .here a, a:visited, a:hover, a:focus {
+            color: #F399AC;
+            text-decoration-color: #F399AC;
+            text-decoration: underline;
+        }
+
+        .modal {
+            color: black;
+        }
+
+        button.btn {
+            background-color: #8b0000 !important;
+            border-color: #8b0000 !important;
+            outline: 0 !important;
+        }
+
+        button.btn:hover, button.btn:focus, button.btn:visited, button.btn:active {
+            outline: 0 !important;
+            background-color: #F399AC !important;
+            border-color: #8b0000 !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+{% block navitems %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ index }}">home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ songs }}">music rec</a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ blog }}">blog</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ about }}">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ suggest }}">suggest!</a>
+    </li>
+{% endblock %}
+
+{% block contents %}
+    <section class="jumbotron">
+        <div class="container">
+            <div>
+                <h3 class="pink">blog: recent posts</h3>
+                <p style="max-width:26em">brief thoughts that jump between the internet, design, writing, music, coding,
+                    self-development, and work culture. mostly book and album reviews...</p>
+                <br>
+                {% if current_user.is_authenticated %}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        new post
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">new post</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('blog_comment') }}" method="post">
+                                        {{ form.csrf_token }}
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">write here!</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"
+                                                      placeholder="" name="comment"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                {% endif %}
+                <div class="dropdown-divider"></div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="column1"><p>mono by rm review</p>
+                    <p class="time">24 september 2019</p></div>
+                <div class="column2">
+                    <p>The BTS rapper strikes it out alone once more – and this time he’s produced a dynamic,
+                        distinctive record.
+                        <br><br>
+                        Back in 2015, RM (aka Kim Namjoon) became the first member of BTS to release a solo mixtape.
+                        That self-titled collection, while still an amazing album, sometimes felt like the work of
+                        someone trying to fit the mould of what they thought a rapper should be. Though it contained
+                        similar messaging to the songs of the Korean boyband (‘Do You’, for example, encouraged
+                        listeners to be themselves, flaws and all), it also veered away from their perceived “clean-cut”
+                        image into squealed swear words and eyebrow-raising brags. As an homage to western hip-hop, it
+                        worked but, when considered in the context of one artist’s unique voice, lacked the originality
+                        needed to make it truly distinctive.
+                        <br><br>
+                        On the 24-year-old’s second mixtape (or playlist, as he’s termed it), things have changed
+                        dramatically. Last year, the rapper took to a BTS fan forum to describe himself as a fan of
+                        “that moment where twilight and evening transitions to night, and the moment when dawn
+                        transitions to morning”. ‘Mono’ sounds like it was created with those moments in mind. This is a
+                        soundtrack for walking the streets, contemplating life and working through your thoughts as the
+                        sky changes gears. It’s atmospheric and reflective, and shows his impressive growth since its
+                        predecessor’s release.
+                        <br><br>
+                        Loneliness and longing are the main themes this time around, as RM puts his life under a
+                        microscope. On the low-key, shuffling ‘Uhgood’, he asks, “Why do I feel lonely? / I feel so
+                        lonely when I’m with me.” On ‘Forever Rain’, which sounds as grey as its title suggests – not a
+                        dull, lifeless grey, but one that’s comforting and dynamic – he admits, “When it rains I get a
+                        little feeling that I do have a friend.” On piano-led opener ‘Tokyo’, he sounds like he’s
+                        searching for the root of those feelings as he wonders, “Do I miss myself? / Do I miss your
+                        face?“
+                        <br><br>
+                        Similarly, the dichotomy between love and hate – or lack thereof–- is also on the rapper’s mind.
+                        “Why do love and hate sound just the same to me?” he ask on ‘Tokyo’, while, on ‘Seoul’, he
+                        examines his love-hate relationship with the titular city he calls home. “I’m leaving you / I’m
+                        living you,” he whispers at one point, stuck between opposing forces.
+                        <br><br>
+                        NELL’s JW on the album’s crowning glory, ‘Everythingoes’. Based around the idea that all things
+                        must pass, it builds slowly over a beautiful, revolving melody and swelling production, holding
+                        back RM’s vocal until almost two minutes in. It eventually arrives just in time for the track to
+                        hit its peak – a spine-tingling mix of needling synth lines, thunderclap percussion and
+                        passionate delivery.
+                        <br><br>
+                        “Moonchild, you shine / When moon rise, it’s your time,” the musician sings on the auto-tuned,
+                        bass-y hip-hop of ‘Moonchild’. He’s benefited from the space to find his own voice and sound,
+                        and has gained the confidence and perspective needed to be comfortable as himself. ‘Mono’
+                        suggests RM’s own time is now.
+                        <br><br>
+                        Listen to it <a class="here" href="https://soundcloud.com/bangtan/sets/rm-mono-2018">here</a>!
+                    </p>
+                    <i onclick="toggle(this)" class="fa fa-thumbs-up"></i>
+                    <script>
+                        function toggle(x) {
+                            x.classList.toggle("fa-thumbs-down");
+                        }
+                    </script>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        comment
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">leave a nice comment!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('blog_comment') }}" method="post">
+                                        {{ form.csrf_token }}
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">what did you think?</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"
+                                                      placeholder="" name="comment"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="column1"><p>station elevent by emily st. john mandel review</p>
+                    <p class="time">14 august 2019</p></div>
+                <div class="column2">
+                    <p>In her much-tipped fourth novel, longlisted last week for a US National Book award, Canadian
+                        author Emily St John Mandel makes something subtle and unusual out of elements that have become
+                        garishly overfamiliar. A virulent new strain of flu that "exploded like a neutron bomb over the
+                        surface of the earth", wiping out 99% of humanity; characters holed up in tower blocks while the
+                        world collapses around them; "unspeakable years" in which the unlucky survivors walk blasted
+                        roads in search of vestiges of civilisation; crazed prophets leading murderous cults and
+                        "ferals" leaping out from behind bushes. We all know the script, as Mandel drily notes when one
+                        character begins a supermarket sweep of bottled water and tinned food: "Jeevan's understanding
+                        of disaster preparedness was based entirely on action movies, but on the other hand, he'd seen a
+                        lot of action movies.".
+                        <br><br>
+                        But whereas most apocalypse novels push grimly forward into horror or dystopia, Station Eleven
+                        skips back and forth between the pre-flu world and Year Twenty after global collapse, when the
+                        worst is over and survivors have banded together into isolated settlements. Gradually, the book
+                        builds cumulative power as connections are made between the two time frames, and characters who
+                        do or don't survive: including Jeevan, a paparazzo who planned to become a paramedic; Kirsten, a
+                        child actor who grows up to perform Shakespeare after the pandemic; and Miranda, whose creative
+                        energies were poured into a hand-drawn comic called Station Eleven which miraculously survives,
+                        becoming both a totem of the old world and a distorted mirror of the new.
+                        <br><br>
+                        The man who links them all, Arthur Leander, is a famous actor who dies on stage just before the
+                        Georgia Flu sweeps the world. Though he doesn't experience the catastrophe, his story is at the
+                        heart of the book, and this is typical of Mandel's roving, slantwise focus. For the last night
+                        on earth before the lights start to go out, she dwells on the production of King Lear which is
+                        Arthur's last; in the post-pandemic world, she follows Kirsten and the rest of the Travelling
+                        Symphony, a peripatetic band of actors and musicians whose motto, taken from Star Trek, is
+                        "survival is insufficient". They struggle and squabble – someone has scribbled "Hell is other
+                        people" inside one of their caravans, and someone else has crossed out "other people" and
+                        written "flutes" – but find safety and purpose as well as "moments of transcendent beauty" in
+                        their shared endeavour.
+                        <br><br>
+                        Such frozen moments appear as tableaux throughout the book: fake snow falling on the cast of
+                        King Lear as they gather around the fallen Arthur; Miranda gazing from a twilit beach at huge
+                        lit-up ships out to sea as the world comes to a standstill; the flat, eerie panels of Miranda's
+                        Station Eleven. Unlike Anne Washburn in her recent play Mr Burns, which also featured a
+                        travelling band of actors in a dystopic future America, Mandel isn't interested in how
+                        apocalypse might act upon art: this is very much a novel about individual rather than collective
+                        destiny. The glacial calm of her prose extends to the characters, so that while the book is
+                        visually stunning, dreamily atmospheric and impressively gripping, we never feel the urgency and
+                        panic of global disaster, let alone its moral weight.
+                        <br><br>
+                        But perhaps that is beside the point. Station Eleven is not so much about apocalypse as about
+                        memory and loss, nostalgia and yearning; the effort of art to deepen our fleeting impressions of
+                        the world and bolster our solitude. Mandel evokes the weary feeling of life slipping away, for
+                        Arthur as an individual and then writ large upon the entire world. In Year Twenty, Kirsten, who
+                        was eight when the flu hit, is interviewed about her memories, and says that the new reality is
+                        hardest to bear for those old enough to remember how the world was before. "The more you
+                        remember, the more you've lost," she explains – a sentiment that could apply to any of us, here
+                        and now.</p>
+                    <i onclick="toggle(this)" class="fa fa-thumbs-up"></i>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        comment
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">leave a nice comment!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('blog_comment') }}" method="post">
+                                        {{ form.csrf_token }}
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">what did you think?</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"
+                                                      placeholder="" name="comment"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        </div>
+    </section>
+{% endblock %}

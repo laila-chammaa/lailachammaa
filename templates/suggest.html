@@ -1,0 +1,106 @@
+{% extends "index.html" %}
+
+{% block title %}Suggest!{% endblock %}
+{% block head %} {{ super() }}
+    <style>
+        button.btn {
+            background-color: #8b0000 !important;
+            border-color: #8b0000 !important;
+            outline: 0 !important;
+        }
+
+        button.btn:hover, button.btn:focus, button.btn:visited, button.btn:active {
+            outline: 0 !important;
+            background-color: #F399AC !important;
+            border-color: #8b0000 !important;
+        }
+    </style>
+{% endblock %}
+<br><br>
+{% block navitems %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ index }}">home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ songs }}">music rec</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ blog }}">blog</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ about }}">about</a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ suggest }}">suggest!</a>
+    </li>
+{% endblock %}
+
+{% block contents %}
+    <section class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <h3 class="pink">hi!!</h3>
+                <br>
+            </div>
+            <div class="row">
+                <p style="max-width:26em">
+                    suggest me a song to add to my playlists! i'm always up for discovering new songs and new artists.
+                    thank you so much!!
+                </p>
+            </div>
+            <br>
+            {% if form.errors %}
+                <ul class="errors">
+                    {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+                        {% for error in field_errors %}
+                            <li>{{ form[field_name].label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% for field in form.errors %}
+                {% for error in form.errors[field] %}
+                    <div class="alert alert-error">
+                        <strong>Error!</strong> {{ error }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <form action="{{ url_for('suggestform') }}" method="post">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    <label for="Input1">name of the song:</label>
+                    <input class="form-control" type="text" id="Input1" name="song">
+                </div>
+                <div class="form-group">
+                    <label for="Input2">name of the artist:</label>
+                    <input class="form-control" type="text" id="Input2" name="artist">
+                </div>
+                <div class="form-group">
+                    <label for="Select1">the playlist you want the song in:</label>
+                    <select class="form-control" id="Select1" name="playlist">
+                        <option>doesn't matter</option>
+                        <option>when you're sad and melancholic</option>
+                        <option>when you're excited and ready to dance</option>
+                        <option>when you want to sing along</option>
+                        <option>when you're at the beach</option>
+                        <option>when you're doing chores</option>
+                        <option>when you're at a pool party</option>
+                        <option>when you're reading, writing or studying</option>
+                        <option>when there's a storm outside and you're in bed</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Textarea1">comment</label>
+                    <textarea class="form-control" id="Textarea1" rows="2" name="comment"
+                              placeholder="tell me a little bit about the song!" type="comment"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block foot %}{% endblock %}

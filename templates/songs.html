@@ -1,0 +1,435 @@
+{% extends "index.html" %}
+
+{% block title %}Songs{% endblock %}
+{% block head %} {{ super() }}
+    {% block style %}
+    <style>
+        li {
+            list-style: none;
+        }
+
+        li, a, ul {
+            background-color: #1E2125;
+        }
+
+        .card {
+            background-color: #1E2125;
+        }
+
+        .btn {
+            color: white;
+            border-bottom: 1px solid #F399AC;
+            text-decoration: none;
+        }
+
+        .btn:hover, .btn:focus {
+            color: #F399AC;
+            text-decoration: none;
+        }
+
+        audio:focus {
+            outline: 0;
+        }
+
+        .badge {
+            background-color: #8b0000;
+        }
+
+        #special {
+            background-color: #8b0000 !important;
+            border-color: #8b0000 !important;
+            outline: 0 !important;
+        }
+
+        #special:hover, #special:focus, #special:visited, #special:active {
+            outline: 0 !important;
+            background-color: #F399AC !important;
+            border-color: #8b0000 !important;
+        }
+    </style>
+        {% endblock %}
+{% endblock %}
+<br><br>
+{% block navitems %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ index }}">home</a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ songs }}">music rec</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ blog }}">blog</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ about }}">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ suggest }}">suggest!</a>
+    </li>
+{% endblock %}
+
+{% block contents %}
+    <section class="jumbotron">
+        <div class="container">
+            <div>
+                <h3 class="pink">music rec.</h3>
+                <p style="max-width:26em">I like to create playlists for my different moods and activities.</p>
+                <br>
+                {% if current_user.is_authenticated %}
+                    <!-- Button trigger modal -->
+                    <button type="button" id="special" class="btn btn-primary" data-toggle="modal"
+                            data-target="#exampleModalCenter">
+                        add song
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">add a song!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('add_song') }}" method="post">
+                                        {{ form1.csrf_token }}
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">write here!</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
+                                                      placeholder="song" name="song"></textarea>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
+                                                      placeholder="artist" name="artist"></textarea>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
+                                                      placeholder="playlist" name="playlist"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                {% endif %}
+                <div class="dropdown-divider"></div>
+                <br>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                    aria-expanded="false" aria-controls="collapseOne">
+                                when you're sad and melancholic
+                                <span class="badge badge-primary badge-pill">new</span>
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <audio controls src="{{ url_for('static', filename="mp3/tokyo.mp3") }}">
+                                Your browser does not support the
+                                <code>audio</code> element.
+                            </audio>
+                            <br>
+                            ---------------------
+                            <br>
+                            <pre>
+tokyo by rm
+always by rm
+life by kim namjoon
+uhgood by rm
+scenery by tae
+tonight by jin
+voice by rm
+adrift by joon</pre>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                when you're excited and ready to dance
+                            </button>
+                        </h2>
+                    </div>
+
+
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <audio controls src="{{ url_for('static', filename="mp3/ma city.mp3") }}">
+                                Your browser does not support the
+                                <code>audio</code> element.
+                            </audio>
+                            <br>
+                            ---------------------
+                            <br>
+                            <pre>
+airplane pt.2 by bts
+idol by bts
+just dance by jhope
+throw away by runch randa
+dna by bts
+dionysus by bts
+attack on bangtan by bangtan
+ma city by bts</pre>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                when you want to sing along
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                         data-parent="#accordionExample">
+                        <div class="card-body">
+                            <audio controls src="{{ url_for('static', filename="mp3/Trivia Love.mp3") }}">
+                                Your browser does not support the
+                                <code>audio</code> element.
+                            </audio>
+                            <br>
+                            ---------------------
+                            <br>
+                            <pre>
+i'm fine by bts
+boy with luv by bts ft halsey
+paradise by bts
+trivia: love by rm
+2! 3! by bts
+dimple by jin, jimin, tae, jk
+outro: propose by bts
+blanket kick by bts
+for you by bts</pre>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header" id="headingFour">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    when you're at the beach
+                                </button>
+                            </h2>
+                        </div>
+
+
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+                                <audio controls src="{{ url_for('static', filename="mp3/serendipity.mp3") }}">
+                                    Your browser does not support the
+                                    <code>audio</code> element.
+                                </audio>
+                                <br>
+                                ---------------------
+                                <br>
+                                <pre>
+serendipity by jimin
+love maze by bts
+lights by bts
+euphoria by bts
+promise by jimin
+moonchild by rm
+run by bts
+i need u by bts
+go go by bts</pre>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header" id="headingFive">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    when you're doing chores
+                                </button>
+                            </h2>
+                        </div>
+
+
+                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+                                <audio controls src="{{ url_for('static', filename="mp3/ddaeng.mp3") }}">
+                                    Your browser does not support the
+                                    <code>audio</code> element.
+                                </audio>
+                                <br>
+                                ---------------------
+                                <br>
+                                <pre>
+outro: her by rapline
+tear by bts
+into: persona by rm
+epiphany by jin
+ddaeng bt rapline
+winter bear by v
+road/path by bts
+seoul by rm</pre>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header" id="headingSix">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    when you're at a pool party
+                                    <span class="badge badge-primary badge-pill">hot</span>
+                                </button>
+                            </h2>
+                        </div>
+
+
+                        <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+                                <audio controls src="{{ url_for('static', filename="mp3/blue side.mp3") }}">
+                                    Your browser does not support the
+                                    <code>audio</code> element.
+                                </audio>
+                                <br>
+                                ---------------------
+                                <pre>
+anpanman by bts
+so what by bts
+pied piper by bts
+boyz with fun by bts
+blue side by hobi
+home by bts
+make it right by bts</pre>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header" id="headingSeven">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapseSeven" aria-expanded="false"
+                                        aria-controls="collapseSeven">
+                                    when you're reading, writing or studying
+                                </button>
+                            </h2>
+                        </div>
+
+
+                        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+                                <audio controls src="{{ url_for('static', filename="mp3/seesaw.mp3") }}">
+                                    Your browser does not support the
+                                    <code>audio</code> element.
+                                </audio>
+                                <br>
+                                ---------------------
+                                <br>
+                                <pre>
+trivia: seesaw by suga
+reflection by joon
+butterfly by bts
+134340 by bts
+hold me tight by bts prod tae
+airplane by jhope
+4 o'clock by r&v
+so far away by suga, jin, jk
+song request by leesora ft. suga</pre>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" id="headingEight">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                            data-target="#collapseEight" aria-expanded="false"
+                                            aria-controls="collapseEight">
+                                        when there's a storm outside and you're in bed
+                                    </button>
+                                </h2>
+                            </div>
+
+
+                            <div id="collapseEight" class="collapse" aria-labelledby="headingEight"
+                                 data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <audio controls src="{{ url_for('static', filename="mp3/mikro.mp3") }}">
+                                        Your browser does not support the
+                                        <code>audio</code> element.
+                                    </audio>
+                                    <br>
+                                    ---------------------
+                                    <br>
+                                    <pre>
+forever rain by namjoon
+spring day by bts
+singularity by v
+magic shop by bts
+jamais vu by jk, hobi, jin
+mikrokosmos by bts
+rain by bts
+breathe by jungkook</pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% for lista in doclists %}
+                            <div class="card">
+                                <div class="card-header" id="{{ lista[0] }}">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                                data-target="#{{ lista[1] }}" aria-expanded="false"
+                                                aria-controls="{{ lista[1] }}">
+                                            {{ lista[2] }}
+                                        </button>
+                                    </h2>
+                                </div>
+
+
+                                <div id="{{ lista[1] }}" class="collapse" aria-labelledby="{{ lista[0] }}"
+                                     data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <audio controls src="{{ url_for('static', filename="{{ lista[3] }}") }}">
+                                            Your browser does not support the
+                                            <code>audio</code> element.
+                                        </audio>
+                                        <br>
+                                        ---------------------
+                                        <br>
+                                        {% for song in lista[4:] %}
+                                            <pre>{{ song }}</pre>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

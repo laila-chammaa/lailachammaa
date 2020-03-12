@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> {% block head %}
+    <meta charset="UTF-8">
+    <title>Laila Chamma'a · {% block title %}Home{% endblock %}</title>
+    <!--bootstrap link-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="CSS/basecss.css") }}">
+    {% block style %}
+        <style>
+        button.btn {
+            background-color: #8b0000 !important;
+            border-color: #8b0000 !important;
+            outline: 0 !important;
+        }
+
+        button.btn:hover, button.btn:focus, button.btn:visited, button.btn:active {
+            outline: 0 !important;
+            background-color: #F399AC !important;
+            border-color: #8b0000 !important;
+        }
+        </style>
+    {% endblock %}
+
+{% endblock %}
+</head>
+<body>
+
+{% block navbar %}
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="#">laila chamma'a</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+                    {% block navitems %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ index }}">home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ songs }}">music rec</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ blog }}">blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ about }}">about</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ suggest }}">suggest!</a>
+                        </li>
+                    {% endblock %}
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+{% endblock %}
+<br><br><br>
+{% block contents %}
+    <section class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <h3 class="pink">welcome.</h3>
+                <br>
+            </div>
+            <div class="row">
+                <p style="max-width:26em">
+                    Laila is a computer science student and music lover based in Montreal, Quebec.
+                    This rather simple (but hopefully pleasant) website is for her song recommendations and blog that
+                    includes some album and book reviews.
+                    Have a very nice day.
+                </p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block foot %}
+    <footer class="container">
+        <a href="#">back to top</a>&ensp;·&ensp;
+        <a href="mailto:laylachammaa@gmail.com">email me</a>&ensp;·&ensp;
+        <!-- Button trigger modal -->
+        <a href="" data-toggle="modal" data-target="#exampleModal">
+            admin?
+        </a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Admin Log In</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/login" method="post" class="form-signin">
+                            {{ form.csrf_token }}
+                            <div class="form-label-group">
+                                <input type="email" id="inputEmail" class="form-control"
+                                       placeholder="Email address" name="email" required autofocus>
+                                <label for="inputEmail">Email address</label>
+                            </div>
+
+                            <div class="form-label-group">
+                                <input type="password" id="inputPassword" class="form-control"
+                                       placeholder="Password" name="password" required>
+                                <label for="inputPassword">Password</label>
+                            </div>
+
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input"
+                                       id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">Remember
+                                    password</label>
+                            </div>
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase"
+                                    type="submit">Sign in
+                            </button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <span>
+        {% for message in get_flashed_messages() %}
+            {{ message }}<br/>
+        {% endfor %}
+            {% if current_user.is_authenticated %}
+                <p>welcome {{ current_user.id }}!</p>
+                <a href="/logout">logout</a>
+        {% endif %}
+            {% if not current_user.is_authenticated %}
+                <p>not logged in.</p>
+            {% endif %}
+    </span>
+    </footer>
+{% endblock %}
+
+</body>
+</html>
