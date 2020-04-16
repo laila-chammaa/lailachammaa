@@ -271,7 +271,7 @@ def login():
                            form=form,
                            message=error)
 
-
+# logout button
 @app.route('/logout')
 @login_required
 def logout():
