@@ -1,0 +1,4 @@
+bcrypt
+flask_login
+flask_wtf
+flask

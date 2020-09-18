@@ -59,12 +59,12 @@ class LoginForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    comment = TextAreaField('comment', validators=[DataRequired])
+    comment = TextAreaField('comment', validators=[DataRequired()])
 
 class SongForm(FlaskForm):
-    song = TextAreaField('song', validators=[DataRequired])
-    artist = TextAreaField('artist', validators=[DataRequired])
-    playlist = TextAreaField('playlist', validators=[DataRequired])
+    song = TextAreaField('song', validators=[DataRequired()])
+    artist = TextAreaField('artist', validators=[DataRequired()])
+    playlist = TextAreaField('playlist', validators=[DataRequired()])
 
 
 def check_password(email, password):
@@ -280,4 +280,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=5000)

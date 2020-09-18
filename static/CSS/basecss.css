@@ -84,6 +84,7 @@ footer a:hover {
   font-weight: bold;
   padding: 1rem;
   transition: all 0.2s;
+  color: #F399AC;
 }
 
 .form-label-group {
