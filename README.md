@@ -1,4 +1,4 @@
-it's up! [lailachammaa.herokuapp.com](lailachammaa.herokuapp.com)
+it's up! [lailachammaa.herokuapp.com](http://lailachammaa.herokuapp.com)
 
 
 Designed and developed a personal website that was inspired by my love for music and writing using HTML, CSS, JavaScript, Python, Flask, and Bootstrap. 
