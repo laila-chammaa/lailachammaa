@@ -1,6 +1,4 @@
 import csv
-import os
-port = int(os.environ.get(“PORT”, 5000))
 
 import bcrypt
 from flask import Flask, url_for, render_template, redirect, flash, session, request
@@ -282,4 +280,5 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(port=port)
+    from os import environ
+    app.run(host='0.0.0.0', port=environ.get('PORT', 5000))
