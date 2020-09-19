@@ -1,8 +1,7 @@
-Previews! (Sorry, I'm currently in the process of putting it up!)
-![](preview-images/website%20index.png)
-![](preview-images/website%20songs-1.png)
-![](preview-images/website%20songs-2.png)
-![](preview-images/website%20blog-1.png)
-![](preview-images/website%20blog-2.png)
-![](preview-images/website%20about.png)
-![](preview-images/website%20suggest.png)
+Designed and developed a personal website that was inspired by my love for music and writing using HTML, CSS, JavaScript, Python, Flask, and Bootstrap. 
+
+Implemented dynamic pages, user logins, sessions, and cookies.
+
+Used web templating with Jinja and inheritance with python to removed repeated html code between pages.
+
+Deployed as a Docker container on Heroku.
